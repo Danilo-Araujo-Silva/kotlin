@@ -1,17 +1,6 @@
 /*
- * Copyright 2010-2017 JetBrains s.r.o.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2010-2018 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license
+ * that can be found in the license/LICENSE.txt file.
  */
 
 @file:kotlin.jvm.JvmMultifileClass
@@ -23,172 +12,142 @@ package kotlin.text
 import kotlin.*
 
 
-
 /**
- * Parses the string as a signed [Byte] number and returns the result
- * or `null` if the string is not a valid representation of a number.
+ * Returns a string representation of this [Byte] value in the specified [radix].
+ *
+ * @throws IllegalArgumentException when [radix] is not a valid radix for number to string conversion.
  */
 @SinceKotlin("1.1")
-public fun String.toByteOrNull(): Byte? = toByteOrNull(radix = 10)
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun Byte.toString(radix: Int): String = this.toInt().toString(checkRadix(radix))
 
 /**
- * Parses the string as a signed [Byte] number and returns the result
- * or `null` if the string is not a valid representation of a number.
+ * Returns a string representation of this [Short] value in the specified [radix].
  *
+ * @throws IllegalArgumentException when [radix] is not a valid radix for number to string conversion.
+ */
+@SinceKotlin("1.1")
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun Short.toString(radix: Int): String = this.toInt().toString(checkRadix(radix))
+
+/**
+ * Returns a string representation of this [Int] value in the specified [radix].
+ *
+ * @throws IllegalArgumentException when [radix] is not a valid radix for number to string conversion.
+ */
+@SinceKotlin("1.1")
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun Int.toString(radix: Int): String = java.lang.Integer.toString(this, checkRadix(radix))
+
+/**
+ * Returns a string representation of this [Long] value in the specified [radix].
+ *
+ * @throws IllegalArgumentException when [radix] is not a valid radix for number to string conversion.
+ */
+@SinceKotlin("1.1")
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun Long.toString(radix: Int): String = java.lang.Long.toString(this, checkRadix(radix))
+
+/**
+ * Returns `true` if the contents of this string is equal to the word "true", ignoring case, and `false` otherwise.
+ */
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toBoolean(): Boolean = java.lang.Boolean.parseBoolean(this)
+
+/**
+ * Parses the string as a signed [Byte] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
+ */
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toByte(): Byte = java.lang.Byte.parseByte(this)
+
+/**
+ * Parses the string as a signed [Byte] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
  * @throws IllegalArgumentException when [radix] is not a valid radix for string to number conversion.
  */
 @SinceKotlin("1.1")
-public fun String.toByteOrNull(radix: Int): Byte? {
-    val int = this.toIntOrNull(radix) ?: return null
-    if (int < Byte.MIN_VALUE || int > Byte.MAX_VALUE) return null
-    return int.toByte()
-}
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toByte(radix: Int): Byte = java.lang.Byte.parseByte(this, checkRadix(radix))
+
 
 /**
- * Parses the string as a [Short] number and returns the result
- * or `null` if the string is not a valid representation of a number.
+ * Parses the string as a [Short] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
  */
-@SinceKotlin("1.1")
-public fun String.toShortOrNull(): Short? = toShortOrNull(radix = 10)
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toShort(): Short = java.lang.Short.parseShort(this)
 
 /**
- * Parses the string as a [Short] number and returns the result
- * or `null` if the string is not a valid representation of a number.
- *
+ * Parses the string as a [Short] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
  * @throws IllegalArgumentException when [radix] is not a valid radix for string to number conversion.
  */
 @SinceKotlin("1.1")
-public fun String.toShortOrNull(radix: Int): Short? {
-    val int = this.toIntOrNull(radix) ?: return null
-    if (int < Short.MIN_VALUE || int > Short.MAX_VALUE) return null
-    return int.toShort()
-}
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toShort(radix: Int): Short = java.lang.Short.parseShort(this, checkRadix(radix))
 
 /**
- * Parses the string as an [Int] number and returns the result
- * or `null` if the string is not a valid representation of a number.
+ * Parses the string as an [Int] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
  */
-@SinceKotlin("1.1")
-public fun String.toIntOrNull(): Int? = toIntOrNull(radix = 10)
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toInt(): Int = java.lang.Integer.parseInt(this)
 
 /**
- * Parses the string as an [Int] number and returns the result
- * or `null` if the string is not a valid representation of a number.
- *
+ * Parses the string as an [Int] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
  * @throws IllegalArgumentException when [radix] is not a valid radix for string to number conversion.
  */
 @SinceKotlin("1.1")
-public fun String.toIntOrNull(radix: Int): Int? {
-    checkRadix(radix)
-
-    val length = this.length
-    if (length == 0) return null
-
-    val start: Int
-    val isNegative: Boolean
-    val limit: Int
-
-    val firstChar = this[0]
-    if (firstChar < '0') {  // Possible leading sign
-        if (length == 1) return null  // non-digit (possible sign) only, no digits after
-
-        start = 1
-
-        if (firstChar == '-') {
-            isNegative = true
-            limit = Int.MIN_VALUE
-        } else if (firstChar == '+') {
-            isNegative = false
-            limit = -Int.MAX_VALUE
-        } else
-            return null
-    } else {
-        start = 0
-        isNegative = false
-        limit = -Int.MAX_VALUE
-    }
-
-
-    val limitBeforeMul = limit / radix
-    var result = 0
-    for (i in start..(length - 1)) {
-        val digit = digitOf(this[i], radix)
-
-        if (digit < 0) return null
-        if (result < limitBeforeMul) return null
-
-        result *= radix
-
-        if (result < limit + digit) return null
-
-        result -= digit
-    }
-
-    return if (isNegative) result else -result
-}
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toInt(radix: Int): Int = java.lang.Integer.parseInt(this, checkRadix(radix))
 
 /**
- * Parses the string as a [Long] number and returns the result
- * or `null` if the string is not a valid representation of a number.
+ * Parses the string as a [Long] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
  */
-@SinceKotlin("1.1")
-public fun String.toLongOrNull(): Long? = toLongOrNull(radix = 10)
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toLong(): Long = java.lang.Long.parseLong(this)
 
 /**
- * Parses the string as a [Long] number and returns the result
- * or `null` if the string is not a valid representation of a number.
- *
+ * Parses the string as a [Long] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
  * @throws IllegalArgumentException when [radix] is not a valid radix for string to number conversion.
  */
 @SinceKotlin("1.1")
-public fun String.toLongOrNull(radix: Int): Long? {
-    checkRadix(radix)
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toLong(radix: Int): Long = java.lang.Long.parseLong(this, checkRadix(radix))
 
-    val length = this.length
-    if (length == 0) return null
+/**
+ * Parses the string as a [Float] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
+ */
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toFloat(): Float = java.lang.Float.parseFloat(this)
 
-    val start: Int
-    val isNegative: Boolean
-    val limit: Long
+/**
+ * Parses the string as a [Double] number and returns the result.
+ * @throws NumberFormatException if the string is not a valid representation of a number.
+ */
+@kotlin.jvm.JvmVersion
+@kotlin.internal.InlineOnly
+public inline fun String.toDouble(): Double = java.lang.Double.parseDouble(this)
 
-    val firstChar = this[0]
-    if (firstChar < '0') {  // Possible leading sign
-        if (length == 1) return null  // non-digit (possible sign) only, no digits after
-
-        start = 1
-
-        if (firstChar == '-') {
-            isNegative = true
-            limit = Long.MIN_VALUE
-        } else if (firstChar == '+') {
-            isNegative = false
-            limit = -Long.MAX_VALUE
-        } else
-            return null
-    } else {
-        start = 0
-        isNegative = false
-        limit = -Long.MAX_VALUE
-    }
-
-
-    val limitBeforeMul = limit / radix
-    var result = 0L
-    for (i in start..(length - 1)) {
-        val digit = digitOf(this[i], radix)
-
-        if (digit < 0) return null
-        if (result < limitBeforeMul) return null
-
-        result *= radix
-
-        if (result < limit + digit) return null
-
-        result -= digit
-    }
-
-    return if (isNegative) result else -result
-}
 
 /**
  * Parses the string as a [Float] number and returns the result
@@ -214,7 +173,7 @@ public fun String.toDoubleOrNull(): Double? = screenFloatValue(this, java.lang.D
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun String.toBigInteger(): java.math.BigInteger =
-        java.math.BigInteger(this)
+    java.math.BigInteger(this)
 
 /**
  * Parses the string as a [java.math.BigInteger] number and returns the result.
@@ -225,7 +184,7 @@ public inline fun String.toBigInteger(): java.math.BigInteger =
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun String.toBigInteger(radix: Int): java.math.BigInteger =
-        java.math.BigInteger(this, checkRadix(radix))
+    java.math.BigInteger(this, checkRadix(radix))
 
 /**
  * Parses the string as a [java.math.BigInteger] number and returns the result
@@ -269,7 +228,7 @@ public fun String.toBigIntegerOrNull(radix: Int): java.math.BigInteger? {
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun String.toBigDecimal(): java.math.BigDecimal =
-        java.math.BigDecimal(this)
+    java.math.BigDecimal(this)
 
 /**
  * Parses the string as a [java.math.BigDecimal] number and returns the result.
@@ -282,7 +241,7 @@ public inline fun String.toBigDecimal(): java.math.BigDecimal =
 @kotlin.jvm.JvmVersion
 @kotlin.internal.InlineOnly
 public inline fun String.toBigDecimal(mathContext: java.math.MathContext): java.math.BigDecimal =
-        java.math.BigDecimal(this, mathContext)
+    java.math.BigDecimal(this, mathContext)
 
 /**
  * Parses the string as a [java.math.BigDecimal] number and returns the result
@@ -291,7 +250,7 @@ public inline fun String.toBigDecimal(mathContext: java.math.MathContext): java.
 @SinceKotlin("1.2")
 @kotlin.jvm.JvmVersion
 public fun String.toBigDecimalOrNull(): java.math.BigDecimal? =
-        screenFloatValue(this) { it.toBigDecimal() }
+    screenFloatValue(this) { it.toBigDecimal() }
 
 /**
  * Parses the string as a [java.math.BigDecimal] number and returns the result
@@ -303,7 +262,7 @@ public fun String.toBigDecimalOrNull(): java.math.BigDecimal? =
 @SinceKotlin("1.2")
 @kotlin.jvm.JvmVersion
 public fun String.toBigDecimalOrNull(mathContext: java.math.MathContext): java.math.BigDecimal? =
-        screenFloatValue(this) { it.toBigDecimal(mathContext) }
+    screenFloatValue(this) { it.toBigDecimal(mathContext) }
 
 /**
  * Recommended floating point number validation RegEx from the javadoc of `java.lang.Double.valueOf(String)`
